@@ -1,6 +1,7 @@
 # indi-firefly
 Integrate Firefly with INDI python client
 
+INDI framework consist of connecting client and server to compatible devices, details: https://www.indilib.org
 
 Docker image can be found here: https://hub.docker.com/r/ejoliet/pyindihub/tags
 
