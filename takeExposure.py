@@ -5,12 +5,18 @@ import threading
 from astropy.io import fits
 
 n=len(sys.argv)
-print sys.argv
-
+args=sys.argv[1:]
+print(n)
+jsonfile = 'firefly-wpt-selected.json'
+if(n > 1):
+    jsonfile = args[0]
+if(n>2):
+    sys.exit('Either pass json file as unique argument or default name \'firefl-wpt-selected.json\' will be used instead')
 #load configuration
-json_text=open(sys.argv[1]).read()
-config=json.loads(json_text)
+json_text=open(jsonfile)
+config=json.load(json_text)
 
+print(config)
 # get name out of it
 
 class IndiClient(PyIndi.BaseClient):
@@ -97,7 +103,10 @@ indiclient.sendNewSwitch(parked)
 
 #star={'ra': (279.23473479 * 24.0)/360.0, 'dec': +38.78368896 }
 star = config['star'] # RA in decimal hours!
-
+print(star)
+ra = float(star['ra']) * 24 / 360
+dec = float(star['dec'])
+print(ra, ", ",dec)
 # We want to set the ON_COORD_SET switch to engage tracking after goto
 # device.getSwitch is a helper to retrieve a property vector
 telescope_on_coord_set=device_telescope.getSwitch("ON_COORD_SET")
@@ -117,9 +126,11 @@ print("Telescope pointing currently ", telescope_radec[0].value, telescope_radec
 while not(telescope_radec):
     time.sleep(0.5)
     telescope_radec=device_telescope.getNumber("EQUATORIAL_EOD_COORD")
-telescope_radec[0].value=star['ra']
-telescope_radec[1].value=star['dec']
+telescope_radec[0].value=ra
+telescope_radec[1].value=dec
 
+
+#### IF IT DOESN'T MOVE, RA it's  not in decimal hours!!<24!
 indiclient.sendNewNumber(telescope_radec)
 # and wait for the scope has finished moving
 while (telescope_radec.s==PyIndi.IPS_BUSY):
@@ -191,9 +202,15 @@ while (i < len(exposures)):
         blobFits=blob.getblobdata()
         print("fits data type: ", type(blobFits))
 
-        import cStringIO
+        # python 2
+        #import cStringIO
         # write image data to StringIO buffer
-        blobfile = cStringIO.StringIO(blobFits)
+        #blobfile = cStringIO.StringIO(blobFits)
+        # python 3 (to be used wiht Firefly)
+        import io
+        # write image data to StringIO buffer
+        blobfile = io.BytesIO(blobFits)
+
         # open a file and save buffer to disk
         fileImgPath=filePath+'/'+fileNameRoot+str(i+1)+".fits"
         print("save file to "+fileImgPath)
@@ -209,6 +226,6 @@ while (i < len(exposures)):
         hdu.info()
         hdr = hdu[0].header
         print("RA,DEC found in header:",hdr['RA']," , ", hdr['DEC'])
-        print(repr(hdr))
+        #print(repr(hdr))
         hdu.close
     i+=1
