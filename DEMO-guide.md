@@ -1,11 +1,14 @@
 # Python demo to run in docker ejoliet/pyindihub
 
+- Run kstars
 
 - spin up container and enter bash:
 
 `docker run -v ~/Box/Astroinformatics2019/:/root/giss-2019 -it -p 7624:7624 ejoliet/pyindihub bash`
 
 ` indiserver -v indi_simulator_telescope indi_simulator_ccd`
+
+- Connect kstar to remote server localhost:7624 as client to see telescope and exposure actions!
 
 - Run demo on another console
 
@@ -55,7 +58,7 @@ fc.add_extension(ext_type='POINT', plot_id=None, title='Take Exposure!', extensi
 
 
 
-fctgt.py:
+See [fctgt.py](fctgt.py):
 ```
 import json, subprocess
 
@@ -76,4 +79,13 @@ def print_coords(event):
 #       with open('event.json', 'w') as outfile:  
 #           json.dump(event['data'], outfile)
        pointTelescope(wdata[0],wdata[1])
+```
+
+- the demo will produce a json [config file](firefly-wpt-selected.json) and run the exposure CCD sequence and produce IMG-*.fits
+
+- in python console, upload the exposure observed! (script can make use astormetry.net, astropy and WCS - or use **machine learning** to concert image pixel into wcs ;-) ) 
+
+```
+imval = fc.upload_file('IMG-*.fits')
+status = fc.show_fits(file_on_server=imval, plot_id="exposure-test", title='Test Exposure')
 ```
