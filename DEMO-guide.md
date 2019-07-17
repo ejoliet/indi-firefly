@@ -1,24 +1,24 @@
 # Python demo to run in docker ejoliet/pyindihub
 
 
-- [ ] spin up container and enter bash:
+- spin up container and enter bash:
 
 `docker run -v ~/Box/Astroinformatics2019/:/root/giss-2019 -it -p 7624:7624 ejoliet/pyindihub bash`
 
 ` indiserver -v indi_simulator_telescope indi_simulator_ccd`
 
-- [ ] Run demo on another console
+- Run demo on another console
 
 Get container id: `dr container ls` OR see console bash: `root@<container-id>:/#`
 then:
 
 `docker exec -it <container-id> bash`
 
-- [ ] Run python3 copy paste the line below
+- Run python3 copy paste the line below
 
 
 Python3 >>>
-
+```
 from firefly_client import FireflyClient
 url='http://luke.ipac.caltech.edu:8080/firefly'
 fc = FireflyClient(url)
@@ -51,12 +51,12 @@ import coords.py
 fc.add_listener(fctgt.print_coords)
 
 fc.add_extension(ext_type='POINT', plot_id=None, title='Take Exposure!', extension_id='pickit')
-
+```
 
 
 
 fctgt.py:
-
+```
 import json, subprocess
 
 def pointTelescope(ra,dec):
@@ -76,3 +76,4 @@ def print_coords(event):
 #       with open('event.json', 'w') as outfile:  
 #           json.dump(event['data'], outfile)
        pointTelescope(wdata[0],wdata[1])
+```
