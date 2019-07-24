@@ -6,7 +6,13 @@
 
 `docker run -v ~/Box/Astroinformatics2019/:/root/giss-2019 -it -p 7624:7624 ejoliet/pyindihub bash`
 
-` indiserver -v indi_simulator_telescope indi_simulator_ccd`
+- If not running yet:
+
+`indiserver -v indi_simulator_telescope indi_simulator_ccd`
+
+- Make sure you cloned the python scripts
+
+`git pull ~/indi-firely/`
 
 - Connect kstar to remote server localhost:7624 as client to see telescope and exposure actions!
 
@@ -17,13 +23,22 @@ then:
 
 `docker exec -it <container-id> bash`
 
+Go to python folder
+
+`cd ~/indi-firefly`
+
 - Run python3 copy paste the line below
 
+`python3`
 
-Python3 >>>
+>>>
 ```
 from firefly_client import FireflyClient
+
+# == What is your localhost/IP/FQN? .. replace below, this is mine locally luke.ipac.caltech.edu
+
 url='http://luke.ipac.caltech.edu:8080/firefly'
+
 fc = FireflyClient(url)
 import astropy.utils.data
 
@@ -40,6 +55,7 @@ localbrowser, browser_url = fc.launch_browser()
 
 fc.display_url()
 
+#====
 
 #imval = fc.upload_file(filename)
 #status = fc.show_fits(file_on_server=imval, plot_id="wise-cutout", title='WISE Cutout')
@@ -47,8 +63,9 @@ fc.display_url()
 file= fc.upload_file(tablename)
 status = fc.show_table(file, tbl_id='tablemass', title='My 2MASS Catalog', page_size=50)
 
+#=======
 
-import coords.py
+import fctgt.py
 
 
 fc.add_listener(fctgt.print_coords)
@@ -83,7 +100,7 @@ def print_coords(event):
 
 - the demo will produce a json [config file](firefly-wpt-selected.json) and run the exposure CCD sequence and produce IMG-*.fits
 
-- in python console, upload the exposure observed! (script can make use astormetry.net, astropy and WCS - or use **machine learning** to concert image pixel into wcs ;-) ) 
+- in python console, upload the exposure observed! (script can make use astrometry.net, astropy and WCS to convert image pixel into wcs ;-) ) 
 
 ```
 imval = fc.upload_file('IMG-*.fits')
