@@ -23,4 +23,4 @@ in another terminal : `docker exec -it <container-id> bash`, run `indiserver -v 
 Edit config.json files, and take picture `python3 takeExposure.py config.json` 
 (if using python2, please see code to change, mainly `import cStringIO` instead of `import io`)
 
-Python3 was tested with Firefly integration, see [demo guide](DEMO-guide.md)
+Python3 was tested with [Firefly](https://github.com/Caltech-IPAC/firefly/) integration, see [demo guide](DEMO-guide.md)
