@@ -2,7 +2,7 @@
 
 All started here: http://www.astro.caltech.edu/ai19/hackathon.html
 
-Make use of INDI python client to control telescope pointing (or any INDI compatible devices) with Firefly - the idea is to select a target (ra,dec mainly) and take a picture from Firefly by passing the coordinates to the python client (see [script](takeExposure.py) ).
+Make use of INDI python client to control telescope pointing (or any INDI compatible devices) with [Firefly](https://github.com/Caltech-IPAC/firefly) - the idea is to select a target (ra,dec mainly) and take a picture from Firefly by passing the coordinates to the python client (see [script](takeExposure.py) ).
 
 Once the exposure(s) is written out locally, we could also upload FITS produced into Firefly from the same python local session...
 Another step could be included but not added here is to solve/extract wcs/sources - this can be done with astropy/machine learning!
