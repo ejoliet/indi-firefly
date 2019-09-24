@@ -24,3 +24,6 @@ Edit config.json files, and take picture `python3 takeExposure.py config.json`
 (if using python2, please see code to change, mainly `import cStringIO` instead of `import io`)
 
 Python3 was tested with [Firefly Python client](https://github.com/Caltech-IPAC/firefly_client) integration, see [demo guide](DEMO-guide.md)
+
+NOTE: We make use of [Kstars](https://edu.kde.org/kstars/
+) software as a client and acting as a telescope/CCD simulator for testing INDI devices control.
