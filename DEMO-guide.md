@@ -106,3 +106,6 @@ def print_coords(event):
 imval = fc.upload_file('IMG-*.fits')
 status = fc.show_fits(file_on_server=imval, plot_id="exposure-test", title='Test Exposure')
 ```
+
+
+See resulting demo in [youtube](https://www.youtube.com/watch?v=BXMtQlVCHsk).
