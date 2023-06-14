@@ -1,6 +1,6 @@
 # indi-firefly
 
-All started here: http://www.astro.caltech.edu/ai19/hackathon.html
+All started here: [the Astroinformatics 2019 hackathon at Caltech](http://astroinformatics2019.org)
 
 Make use of INDI python client to control telescope pointing (or any INDI compatible devices) with [Firefly](https://github.com/Caltech-IPAC/firefly) - the idea is to select a target (ra,dec mainly) and take a picture from Firefly by passing the coordinates to the python client (see [script](takeExposure.py) ).
 
